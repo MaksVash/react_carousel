@@ -4,10 +4,15 @@ import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -28,7 +33,8 @@ class App extends React.Component<{}, State> {
   };
 
   handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+    const name = e.target.name as keyof State;
+    const { value, type, checked } = e.target;
 
     this.setState({
       [name]: type === 'checkbox' ? checked : Number(value),
